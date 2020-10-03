@@ -16,9 +16,20 @@ const Search = () => {
           srsearch: term,
         },
       });
-      setResults(data.query.results);
+      setResults(data.query.search);
     })();
   }, [term]);
+
+  const renderdResults = results.map((result) => {
+    return (
+      <div key={result.pageid} className="item">
+        <div className="content">
+          <div className="header">{result.title}</div>
+          {result.snippet}
+        </div>
+      </div>
+    );
+  });
 
   return (
     <div>
@@ -34,6 +45,7 @@ const Search = () => {
           />
         </div>
       </div>
+      <div className="ui celled list">{renderdResults}</div>
     </div>
   );
 };
