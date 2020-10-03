@@ -6,18 +6,20 @@ const Search = () => {
   const [results, setResults] = useState([]);
 
   useEffect(() => {
-    (async () => {
-      const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
-        params: {
-          action: "query",
-          list: "search",
-          origin: "*",
-          format: "json",
-          srsearch: term,
-        },
-      });
-      setResults(data.query.search);
-    })();
+    if (term) {
+      (async () => {
+        const { data } = await axios.get("https://en.wikipedia.org/w/api.php", {
+          params: {
+            action: "query",
+            list: "search",
+            origin: "*",
+            format: "json",
+            srsearch: term,
+          },
+        });
+        setResults(data.query.search);
+      })();
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {
@@ -53,7 +55,7 @@ const Search = () => {
           />
         </div>
       </div>
-      <div className="ui celled list">{renderedResults}</div>
+      {term && <div className="ui celled list">{renderedResults}</div>}
     </div>
   );
 };
