@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 const Search = () => {
-  const [term, setTerm] = useState("programing");
+  const [term, setTerm] = useState("programming");
   const [results, setResults] = useState([]);
 
   useEffect(() => {
@@ -20,15 +20,19 @@ const Search = () => {
       setResults(data.query.search);
     };
 
-    const timeoutId = setTimeout(() => {
-      if (term) {
-        search();
-      }
-    }, 500);
+    if (term && !results.length) {
+      search();
+    } else {
+      const timeoutId = setTimeout(() => {
+        if (term) {
+          search();
+        }
+      }, 1000);
 
-    return () => {
-      clearTimeout(timeoutId);
-    };
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    }
   }, [term]);
 
   const renderedResults = results.map((result) => {
@@ -56,15 +60,13 @@ const Search = () => {
         <div className="field">
           <label>Enter Search Term</label>
           <input
-            className="input"
             value={term}
-            onChange={(e) => {
-              setTerm(e.target.value);
-            }}
+            onChange={(e) => setTerm(e.target.value)}
+            className="input"
           />
         </div>
       </div>
-      {term && <div className="ui celled list">{renderedResults}</div>}
+      <div className="ui celled list">{renderedResults}</div>
     </div>
   );
 };
