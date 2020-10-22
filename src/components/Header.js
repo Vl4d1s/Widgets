@@ -14,7 +14,7 @@ const Header = () => {
         DropDown
       </Link>
       <Link href="/translate" className="item">
-        translate
+        Translate
       </Link>
     </div>
   );
