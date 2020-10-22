@@ -36,8 +36,6 @@ const Search = () => {
   }, [term, results.length]);
 
   const renderedResults = results.map((result) => {
-    console.log('I am ok.');
-
     return (
       <div key={result.pageid} className="item">
         <div className="right floated content">
